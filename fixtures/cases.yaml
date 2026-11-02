@@ -1,0 +1,54 @@
+# Sample question set for rag-eval-kit. Schema version 1.
+# Answerable items are graded against fixtures/sample-docs.
+# Unanswerable items must be refused.
+version: 1
+cases:
+  - id: q1
+    question: "What is the refund window?"
+    expect:
+      contains_any: ["30 days", "thirty days"]
+      citations_any: ["refund-policy.md"]
+      refuse: false
+
+  - id: q2
+    question: "Who is the CEO of Acme?"
+    expect:
+      refuse: true
+      refuse_markers_any: ["don't know", "not in", "insufficient", "cannot find", "no information"]
+
+  - id: shipping-time
+    question: "How long does standard shipping take?"
+    expect:
+      contains_any: ["3-5 business days", "3 to 5 business days"]
+      expected_answer: "Standard shipping takes 3-5 business days."
+      overlap_min: 0.5
+      citations_any: ["shipping.md"]
+      refuse: false
+
+  - id: free-shipping
+    question: "What is the free shipping minimum?"
+    expect:
+      contains_any: ["$50", "50 dollars"]
+      citations_any: ["shipping.md"]
+      refuse: false
+
+  - id: privacy-sell
+    question: "Do you sell personal data?"
+    expect:
+      contains_all: ["personal data"]
+      contains_any: ["do not sell", "don't sell"]
+      citations_any: ["privacy.md"]
+      refuse: false
+
+  - id: support-hours
+    question: "When is customer support available?"
+    expect:
+      contains_any: ["Monday", "9am"]
+      citations_all: ["support-hours.md"]
+      refuse: false
+
+  - id: competitor-price
+    question: "What is the competitor's price for widget X?"
+    expect:
+      refuse: true
+      refuse_markers_any: ["don't know", "insufficient", "no information"]

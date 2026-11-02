@@ -1,0 +1,49 @@
+{
+  "name": "rag-eval-kit",
+  "version": "0.1.0",
+  "description": "Evaluate OpenAI-compatible RAG endpoints for answer quality, citation correctness, and refusal behavior.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "rag-eval-kit": "./dist/src/cli.js"
+  },
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "files": [
+    "dist/src",
+    "fixtures",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepare": "npm run build",
+    "test": "tsc -p tsconfig.json && node --test --test-reporter spec dist/tests/*.test.js",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "rag",
+    "evaluation",
+    "llm",
+    "openai",
+    "citations",
+    "cli"
+  ],
+  "dependencies": {
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.3"
+  }
+}
